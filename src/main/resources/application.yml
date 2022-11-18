@@ -3,7 +3,6 @@ spring:
     url: jdbc:mysql://localhost:3306/spring_security_azure?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
     username: root
     password: Thegioiao95
-
   jpa:
     show-sql: true
     hibernate:
@@ -19,14 +18,21 @@ spring:
           azure-active-directory:
             issuer-uri: https://login.microsoftonline.com/28db4415-a431-4bd0-a2b3-32f84648fed0/v2.0 # Refs: https://docs.spring.io/spring-security/site/docs/current/reference/html5/#webflux-oauth2-login-openid-provider-configuration
 #            user-name-attribute: spring-social-azure
+          facebook:
+            authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
+            tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
+            userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
         registration:
           azure:
             provider: azure-active-directory
             client-id: f732988f-641d-4eaf-affd-2d2b8e6a7f51
             client-secret: pJz8Q~Kqfoua~xi7f1K_Mx7Yxb5RaOzzSqeR-bf0
-            scope: openid, email, profile # Refs: https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
-#            redirectUri: http://localhost:8080/login/oauth2/code/
+#            scope: openid, email, profile # Refs: https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
+##            redirectUri: http://localhost:8080/login/oauth2/code/
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - https://graph.microsoft.com/User.Read
+              - https://graph.microsoft.com/Directory.AccessAsUser.All
           google:
             clientId: 5014057553-8gm9um6vnli3cle5rgigcdjpdrid14m9.apps.googleusercontent.com
             clientSecret: tWZKVLxaD_ARWsriiiUFYoIk
@@ -34,7 +40,20 @@ spring:
             scope:
               - email
               - profile
-
+          github:
+            clientId: d3e47fc2ddd966fa4352
+            clientSecret: 3bc0f6b8332f93076354c2a5bada2f5a05aea60d
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - user:email
+              - read:user
+          facebook:
+            clientId: 121189305185277
+            clientSecret: 42ffe5aa7379e8326387e0fe16f34132
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}" # Note that facebook now mandates the use of https redirect URIs, so make sure your app supports https in production
+            scope:
+              - email
+              - public_profile
 #        provider:
 #          facebook:
 #            authorizationUri: https://www.facebook.com/v3.0/dialog/oauth

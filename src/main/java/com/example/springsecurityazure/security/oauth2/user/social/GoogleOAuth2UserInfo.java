@@ -1,4 +1,6 @@
-package com.example.springsecurityazure.security.oauth2.user;
+package com.example.springsecurityazure.security.oauth2.user.social;
+
+import com.example.springsecurityazure.security.oauth2.user.OAuth2UserInfo;
 
 import java.util.Map;
 

@@ -2,7 +2,11 @@ package com.example.springsecurityazure.model;
 
 public enum AuthProvider {
     local,
-    microsoft,
+    azure,
 
-    google
+    google,
+
+    github,
+
+    facebook
 }
